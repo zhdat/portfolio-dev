@@ -69,9 +69,7 @@ jobs:
             docker run -d \
               --name portfolio \
               --restart unless-stopped \
-              -p 80:80 \
-              -p 443:443 \
-              -v caddy_data:/data \
+              -p 8080:80 \
               ghcr.io/${{ github.repository }}:latest
 
             # Nettoyage
