@@ -5,25 +5,20 @@ import ProjectCard from '../components/ProjectCard.astro'
 // Mes projets
 const projects = [
   {
+    title: 'GD Pâtisserie - E-commerce',
+    description:
+      'Plateforme complète de commande en ligne. Inclut un catalogue dynamique, un panier persistant, et un dashboard administrateur pour la gestion des produits et des commandes. Architecture robuste avec tests E2E.',
+    tags: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Playwright'],
+    link: 'https://gdpatisserie-demo.duckdns.org/',
+    githubLink: 'https://github.com/zhdat/gdpatisserie',
+  },
+  {
     title: 'Portfolio VPS & Docker',
     description:
       'Le site sur lequel vous naviguez. Conçu pour la performance pure (Score 100/100 Lighthouse), hébergé sur mon propre VPS via une infrastructure Docker conteneurisée.',
-    tags: ['Astro', 'Docker', 'Caddy', 'CI/CD'],
+    tags: ['Astro', 'Docker', 'Caddy', 'CI/CD', 'GitHub Actions', 'DevOps'],
     link: 'https://github.com/zhdat/portfolio-dev', // Mets ton lien GitHub ici
-  },
-  {
-    title: 'API Restful & Auth',
-    description:
-      "Une API backend sécurisée gérant l'authentification JWT et une base de données PostgreSQL. Architecture propre et documentation Swagger.",
-    tags: ['Node.js', 'Express', 'PostgreSQL', 'JWT'],
-    link: '#',
-  },
-  {
-    title: 'Dashboard Analytics',
-    description:
-      "Interface test d'administration pour visualiser des données en temps réel. Focus sur l'UX et la réactivité des graphiques.",
-    tags: ['React', 'TailwindCSS', 'Chart.js'],
-    link: '#',
+    githubLink: 'https://github.com/zhdat/portfolio-dev',
   },
 ]
 ---
@@ -90,6 +85,7 @@ const projects = [
             description={project.description}
             tags={project.tags}
             link={project.link}
+            githubLink={project.githubLink}
           />
         ))
       }
