@@ -1,0 +1,83 @@
+name: Deploy to VPS
+
+# Déclenche le déploiement uniquement sur les pushs vers 'main'
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch: # Permet de lancer manuellement le workflow
+
+env:
+  REGISTRY: ghcr.io
+  # Nom de l'image (format utilisateur/repo)
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # JOB 1 : CONSTRUIRE L'IMAGE ET L'ENVOYER AU REGISTRE
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=long
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # JOB 2 : DÉPLOYER SUR LE VPS
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 1. Arrêter et supprimer l'ancien conteneur
+            docker stop portfolio || true
+            docker rm portfolio || true
+
+            # 2. Nettoyer les vieilles images pour gagner de la place
+            docker image prune -f || true
+
+            # 3. Récupérer la nouvelle image (Public)
+            # Note: Si ton repo est privé, il faudra ajouter une étape de login ici
+            docker pull ghcr.io/${{ github.repository }}:latest
+
+            # 4. Lancer le nouveau conteneur
+            # On mappe les ports 80 et 443 pour Caddy
+            # On crée un volume pour ne pas perdre les certificats SSL au redémarrage
+            docker run -d \
+              --name portfolio \
+              --restart unless-stopped \
+              -p 80:80 \
+              -p 443:443 \
+              -v caddy_data:/data \
+              ghcr.io/${{ github.repository }}:latest

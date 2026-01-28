@@ -9,11 +9,11 @@
 
 Ce projet a été conçu pour allier performance frontend et rigueur DevOps.
 
-* **Core :** [Astro](https://astro.build/) (Architecture "Islands" pour le Zero-JS par défaut)
-* **Style :** TailwindCSS (pour un design utility-first léger)
-* **Infrastructure :** Docker & Docker Compose
-* **Serveur Web :** Caddy (Gestion automatique HTTPS/TLS)
-* **CI/CD :** GitHub Actions (Déploiement continu sur VPS)
+- **Core :** [Astro](https://astro.build/) (Architecture "Islands" pour le Zero-JS par défaut)
+- **Style :** TailwindCSS (pour un design utility-first léger)
+- **Infrastructure :** Docker & Docker Compose
+- **Serveur Web :** Caddy (Gestion automatique HTTPS/TLS)
+- **CI/CD :** GitHub Actions (Déploiement continu sur VPS)
 
 ## 🚀 Installation & Développement
 
@@ -45,4 +45,4 @@ docker compose up --build
 2. Workflow compile le projet et le déploie sur le VPS
 3. Caddy s'occupe de la gestion automatique du HTTPS/TLS
 
-*Réalisé par Calliste Ravix - [https://www.malt.fr/profile/callisteravix1]*
+_Réalisé par Calliste Ravix - [https://www.malt.fr/profile/callisteravix1]_
