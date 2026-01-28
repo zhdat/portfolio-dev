@@ -29,6 +29,8 @@ npm install
 # 3. Lancer le serveur de dev
 npm run dev
 
+```
+
 ## 🐳 Déploiement Docker
 
 Le projet est entièrement conteneurisé. Pour tester la version de production en local
