@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import ProjectCard from '../components/ProjectCard.astro'
+import ContactForm from '../components/ContactForm.astro'
 
 // Mes projets
 const projects = [
@@ -60,7 +61,7 @@ const projects = [
 
       <div class="flex flex-col sm:flex-row gap-4">
         <a
-          href="mailto:ton-email@gmail.com"
+          href="#contact"
           class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-all"
         >
           Me contacter
@@ -89,6 +90,22 @@ const projects = [
           />
         ))
       }
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Me contacter</h2>
+        <p class="mt-4 text-lg text-gray-600">
+          Vous avez un projet ou une opportunité de mission ? <br />
+          N'hésitez pas à m'envoyer un message via le formulaire ci-dessous.
+        </p>
+      </div>
+
+      <div class="max-w-lg mx-auto">
+        <ContactForm />
+      </div>
     </div>
   </section>
 
