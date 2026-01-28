@@ -12,6 +12,7 @@ const projects = [
     tags: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Playwright'],
     link: 'https://gdpatisserie-demo.duckdns.org/',
     githubLink: 'https://github.com/zhdat/gdpatisserie',
+    image: '/gd-website.png',
   },
   {
     title: 'Portfolio VPS & Docker',
@@ -20,6 +21,7 @@ const projects = [
     tags: ['Astro', 'Docker', 'Caddy', 'CI/CD', 'GitHub Actions', 'DevOps'],
     link: 'https://github.com/zhdat/portfolio-dev', // Mets ton lien GitHub ici
     githubLink: 'https://github.com/zhdat/portfolio-dev',
+    image: '/portfolio.png',
   },
 ]
 ---
@@ -87,6 +89,7 @@ const projects = [
             tags={project.tags}
             link={project.link}
             githubLink={project.githubLink}
+            image={project.image}
           />
         ))
       }
